@@ -30,14 +30,14 @@ export const LoginForm = () => {
         .min(6, "It must have 6 characters at least")
         .required("This field is required"),
     }),
-    onSubmit: (values, { setValues }) => {
+    onSubmit: (values, { resetForm }) => {
       if (rememberMe) {
         setSavedForm(values)
       } else {
         removeItem()
       }
       createJSONFile(values, "login-data")
-      setValues(initialValues)
+      resetForm()
     },
   })
   const helperFields = {

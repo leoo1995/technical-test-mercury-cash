@@ -9,7 +9,7 @@ export const RegisterPage = () => {
       body={<LoginForm />}
       footer={
         <Paragraph>
-          Don't have an account? <Anchor href="#">Sign up</Anchor> instead
+          Have an account? <Anchor href="#">Log in</Anchor> instead.
         </Paragraph>
       }
     />
