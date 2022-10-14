@@ -104,6 +104,7 @@ export const RegisterForm = ({}: Props) => {
         { value: "", label: "Country of Residence" },
         ...countriesOptions,
       ],
+      loading: loading,
       icon: <Search />,
       onChange: onChangeSelect,
       placeholder: "Country of Residence",
@@ -146,6 +147,7 @@ export const RegisterForm = ({}: Props) => {
               error={Boolean(field.error)}
               helper={field.error}
               onBlur={field.onBlur}
+              loading={field.loading}
             />
           )
         }

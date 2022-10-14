@@ -15,11 +15,12 @@ type Props = {
   helper?: string
   error?: boolean
   classContainer?: string
+  loading?: boolean
 }
 type InputProps = JSX.IntrinsicElements["input"]
 export const SelectField: React.FC<Props> = ({
   helper,
-
+  loading = false,
   error = false,
   classContainer,
   icon,
@@ -40,6 +41,7 @@ export const SelectField: React.FC<Props> = ({
         onBlur={onBlur}
         icon={icon}
         options={options}
+        loading={loading}
       />
       <HelperText error={error}>{helper}</HelperText>
     </div>

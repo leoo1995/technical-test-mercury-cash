@@ -1,12 +1,12 @@
 import { useRef } from "react"
 import cn from "classnames"
 import ChevronDown from "@assets/svg/ChevronDown"
-
+import { TailSpin } from "react-loader-spinner"
 import styles from "./styles.module.css"
 import { OptionType, OptionValue } from "@local-types/index"
 type Props = {
   icon?: React.ReactNode
-
+  loading?: boolean
   value?: string | number | readonly string[]
   name?: string
   options?: OptionValue[] | OptionType[]
@@ -22,6 +22,7 @@ export const Select = ({
   name,
   options = [],
   error = false,
+  loading = false,
   onBlur,
 }: Props) => {
   const ref = useRef<HTMLInputElement>(null)
@@ -57,7 +58,20 @@ export const Select = ({
           onBlur?.(e)
         }}
       />
-      <ChevronDown className={cn(styles.dropdownIcon)} />
+      {loading ? (
+        <TailSpin
+          height="1em"
+          width="1em"
+          color="var(--primary-color-main)"
+          // radius="12.5"
+          ariaLabel="mutating-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      ) : (
+        <ChevronDown className={cn(styles.dropdownIcon)} />
+      )}
       <ul className={cn(styles.optionsContainer)}>
         {options.map(option => {
           if (typeof option === "object") {

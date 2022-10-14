@@ -10,6 +10,7 @@ export type FieldInputType = Field & {
   onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 export type FieldSelectType = Field & {
+  loading?: boolean
   type: "select"
   onChange: (value: string | number, name?: string) => void
   options: OptionType[] | OptionValue[]
