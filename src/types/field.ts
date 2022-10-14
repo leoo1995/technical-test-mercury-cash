@@ -12,7 +12,7 @@ export type FieldInputType = Field & {
 export type FieldSelectType = Field & {
   type: "select"
   onChange: (value: string | number, name?: string) => void
-  options: string[]
+  options: OptionType[] | OptionValue[]
   icon: null | JSX.Element
 }
 

@@ -1,6 +1,7 @@
 import { Link, LinkProps } from "react-router-dom"
 import cn from "classnames"
 import styles from "./styles.module.css"
+
 type PropsAnchor = React.DetailedHTMLProps<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
   HTMLAnchorElement

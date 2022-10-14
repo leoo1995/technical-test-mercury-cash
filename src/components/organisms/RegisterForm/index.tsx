@@ -8,6 +8,7 @@ import { ControlLabel, SelectField, TextField } from "@components/molecules"
 
 import { createJSONFile } from "@utils/index"
 import * as Yup from "yup"
+import { useCountries } from "../../../hooks/useCountries"
 import {
   FieldInputType,
   FieldSelectType,
@@ -25,6 +26,7 @@ export const RegisterForm = ({}: Props) => {
     language: "",
   }
   const [termsChecked, setTermChecked] = useState<boolean>(false)
+  const { countriesOptions, loading } = useCountries()
   const formik = useFormik<InputFormRegisterUser>({
     initialValues,
     validateOnMount: true,
@@ -98,7 +100,10 @@ export const RegisterForm = ({}: Props) => {
         Boolean(formik.touched?.country) && formik.errors.country
           ? formik.errors.country
           : "",
-      options: ["Colombia", "Venezuela", "México", "Perú", "Chile", "Brazil"],
+      options: [
+        { value: "", label: "Country of Residence" },
+        ...countriesOptions,
+      ],
       icon: <Search />,
       onChange: onChangeSelect,
       placeholder: "Country of Residence",
@@ -113,12 +118,12 @@ export const RegisterForm = ({}: Props) => {
           : "",
       type: "select",
       options: [
-        "English",
-        "Spanish",
-        "French",
-        "Portuguese",
-        "Japanese",
-        "German",
+        { value: "English", label: "English" },
+        { value: "Spanish", label: "Spanish" },
+        { value: "French", label: "French" },
+        { value: "Portuguese", label: "Portuguese" },
+        { value: "Japanese", label: "Japanese" },
+        { value: "German", label: "German" },
       ],
       icon: null,
       onChange: onChangeSelect,
