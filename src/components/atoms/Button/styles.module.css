@@ -1,0 +1,25 @@
+.button {
+  border: none;
+  border-radius: 100vh;
+  background-color: var(--primary-color-main);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+
+  padding: 1em;
+  text-align: center;
+  transition: var(--transition-ease-all);
+}
+
+.button:disabled {
+  background-color: var(--primary-color-disabled);
+  color: var(--text-button-disabled);
+}
+
+.button:hover:not(:disabled) {
+  filter: brightness(80%);
+}
+
+.button:active:not(:disabled) {
+  filter: brightness(120%);
+}

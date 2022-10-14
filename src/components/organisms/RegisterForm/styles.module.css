@@ -1,0 +1,5 @@
+.wrapper {
+  max-width: 500px;
+  display: grid;
+  gap: 16px;
+}

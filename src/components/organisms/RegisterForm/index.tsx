@@ -1,0 +1,178 @@
+import { useFormik } from "formik"
+
+import cn from "classnames"
+import styles from "./styles.module.css"
+import Search from "@assets/svg/Search"
+import { Button, Select } from "@components/atoms"
+import { TextField } from "@components/molecules"
+
+import { createJSONFile } from "@utils/index"
+import * as Yup from "yup"
+type Props = {}
+type InputFormRegister = {
+  email: string
+  password: string
+  confirmPassword: string
+  country: string
+  language: string
+}
+export const RegisterForm = ({}: Props) => {
+  const initialValues = {
+    email: "",
+    password: "",
+    confirmPassword: "",
+    country: "",
+    language: "",
+  }
+  const formik = useFormik<InputFormRegister>({
+    initialValues,
+    validateOnMount: true,
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Email not valid.")
+        .required("This field is required."),
+      password: Yup.string()
+        .min(6, "It must have 6 characters at least")
+        .required("This field is required"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords don't match!")
+        .required("Required"),
+      country: Yup.string().required(),
+      language: Yup.string().required(),
+    }),
+    onSubmit: values => {
+      createJSONFile(values, "register-data")
+    },
+  })
+  const onChangeSelect = (value: string | number, name?: string) => {
+    name && formik.setFieldValue(name, value)
+  }
+  type Field = {
+    name: string
+    value: string | number
+    onBlur: React.FocusEventHandler<any>
+    placeholder: string
+    error: string | undefined
+  }
+  type FieldInputType = Field & {
+    type: "text" | "email" | "number" | "password"
+    onChange: React.ChangeEventHandler<HTMLInputElement>
+  }
+  type FieldSelectType = Field & {
+    type: "select"
+    onChange: (value: string | number, name?: string) => void
+    options: string[]
+    icon: null | JSX.Element
+  }
+  const fields: (FieldSelectType | FieldInputType)[] = [
+    {
+      name: "email",
+      value: formik.values.email,
+      onChange: formik.handleChange,
+      onBlur: formik.handleBlur,
+      error:
+        Boolean(formik.touched?.email) && formik.errors.email
+          ? formik.errors.email
+          : "",
+      type: "email",
+      placeholder: "Email",
+    },
+    {
+      name: "password",
+      value: formik.values.password,
+      onChange: formik.handleChange,
+      onBlur: formik.handleBlur,
+      error:
+        Boolean(formik.touched?.password) && formik.errors.password
+          ? formik.errors.password
+          : "",
+
+      type: "password",
+      placeholder: "Password",
+    },
+    {
+      name: "confirmPassword",
+      value: formik.values.confirmPassword,
+      onChange: formik.handleChange,
+      onBlur: formik.handleBlur,
+      error:
+        Boolean(formik.touched?.confirmPassword) &&
+        formik.errors.confirmPassword
+          ? formik.errors.confirmPassword
+          : "",
+      type: "password",
+      placeholder: "Retype Password",
+    },
+    {
+      type: "select",
+      name: "country",
+      value: formik.values.country,
+
+      onBlur: formik.handleBlur,
+      error:
+        Boolean(formik.touched?.country) && formik.errors.country
+          ? formik.errors.country
+          : "",
+      options: ["Colombia", "Venezuela", "México", "Perú", "Chile", "Brazil"],
+      icon: <Search />,
+      onChange: onChangeSelect,
+      placeholder: "Country of Residence",
+    },
+    {
+      name: "language",
+      value: formik.values.language,
+      onBlur: formik.handleBlur,
+      error:
+        Boolean(formik.touched?.language) && formik.errors.language
+          ? formik.errors.language
+          : "",
+      type: "select",
+      options: [
+        "English",
+        "Spanish",
+        "French",
+        "Portuguese",
+        "Japanese",
+        "German",
+      ],
+      icon: null,
+      onChange: onChangeSelect,
+      placeholder: "Language",
+    },
+  ]
+
+  return (
+    <form className={cn(styles.wrapper)} onSubmit={formik.handleSubmit}>
+      {fields.map(field => {
+        if (field.type === "select") {
+          return (
+            <Select
+              key={field.name}
+              icon={field.icon}
+              name={field.name}
+              options={field.options}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )
+        }
+        return (
+          <TextField
+            key={field.name}
+            type={field.type}
+            placeholder={field.placeholder}
+            name={field.name}
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            error={Boolean(field.error)}
+            helper={field.error}
+          />
+        )
+      })}
+      <Button type="submit" disabled={formik.isValid || formik.isSubmitting}>
+        Sign Up
+      </Button>
+    </form>
+  )
+}

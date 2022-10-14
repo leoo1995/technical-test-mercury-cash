@@ -1,0 +1,8 @@
+.helper {
+  font-weight: 700;
+  display: block;
+  transition: var(--transition-ease-all);
+}
+.helper.error {
+  color: var(--error-color);
+}

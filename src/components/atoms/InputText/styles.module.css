@@ -1,0 +1,15 @@
+.input {
+  border: 1px solid var(--border-field);
+  border-radius: 0.4em;
+  padding: 1em;
+  outline: none;
+  color: var(--text-color);
+  font-weight: 700;
+  transition: var(--transition-ease-all);
+}
+.input::placeholder {
+  color: var(--border-field);
+}
+.input:enabled.error {
+  border-color: var(--error-color);
+}

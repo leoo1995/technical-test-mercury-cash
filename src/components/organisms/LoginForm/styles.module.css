@@ -1,0 +1,16 @@
+.wrapper {
+  display: grid;
+  gap: 1rem;
+  max-width: 500px;
+}
+.passwordSection {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+}
+.passwordField {
+  justify-self: normal;
+}
+.title {
+  text-align: center;
+}

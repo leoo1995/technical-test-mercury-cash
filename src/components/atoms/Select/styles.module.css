@@ -1,0 +1,65 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 100vh;
+  cursor: pointer;
+  border: 1px solid var(--border-field);
+  padding-inline: 1em;
+  position: relative;
+  box-sizing: border-box;
+}
+.wrapper svg {
+  fill: var(--primary-color-main);
+  font-size: 24px;
+}
+.input {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  flex: auto;
+  caret-color: transparent;
+  padding: 1em;
+  font-weight: 700;
+  color: var(--primary-color-main);
+}
+svg.dropdownIcon {
+  font-size: 1em;
+  transition: var(--transition-ease-all);
+}
+
+.input:focus ~ .dropdownIcon {
+  transform: rotate(180deg);
+}
+.optionsContainer {
+  position: absolute;
+  top: calc(100% - 1em);
+  bottom: 0;
+  left: 0;
+  padding: 1em 0;
+  border: 1px solid var(--border-field);
+  background-color: white;
+  border-radius: 1em;
+  z-index: 1;
+  width: 100%;
+  list-style: none;
+  overflow-y: auto;
+  max-height: 700px;
+  height: min-content;
+  box-sizing: border-box;
+  visibility: hidden;
+  transition: var(--transition-ease-all);
+  opacity: 0;
+}
+.input:focus ~ .optionsContainer {
+  visibility: visible;
+  opacity: 1;
+}
+.option {
+  padding: 0.5em;
+  margin: 0;
+  transition: var(--transition-ease-all);
+  font-weight: 700;
+}
+.option:hover {
+  background-color: var(--border-field);
+}

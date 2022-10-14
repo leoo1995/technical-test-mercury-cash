@@ -1,0 +1,13 @@
+:root {
+  --primary-color-main: #6e37ee;
+  --text-color: #170c29;
+  --primary-color-disabled: #b99bf8;
+  --border-field: #edeced;
+  --bg-color-register: #f6f7fb;
+  --text-button-disabled: #ddccfc;
+  --error-color: #ff3333;
+  --transition-ease-all: all ease 0.3s;
+}
+body {
+  font-family: "Nunito", sans-serif;
+}
