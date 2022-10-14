@@ -7,6 +7,7 @@
   padding-inline: 1em;
   position: relative;
   box-sizing: border-box;
+  background-color: #fff;
 }
 .wrapper.error {
   border-color: var(--error-color);
