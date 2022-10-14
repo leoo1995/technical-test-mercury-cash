@@ -128,7 +128,6 @@ export const RegisterForm = ({}: Props) => {
 
   return (
     <form className={cn(styles.wrapper)} onSubmit={formik.handleSubmit}>
-      {JSON.stringify(formik.errors, null, 2)}
       {fields.map(field => {
         if (field.type === "select") {
           return (
