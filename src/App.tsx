@@ -8,6 +8,7 @@ import {
 } from "@components/atoms"
 import { LoginForm, RegisterForm } from "@components/organisms"
 import { useState } from "react"
+import { InputTypeText } from "./types"
 
 function App() {
   const [selectValue, setSelectValue] = useState()
@@ -15,6 +16,7 @@ function App() {
     <div className="App">
       <LoginForm />
       <RegisterForm />
+
       {/* <CheckBox />
       <CheckBox disabled />
       <CheckBox shape="circle" />

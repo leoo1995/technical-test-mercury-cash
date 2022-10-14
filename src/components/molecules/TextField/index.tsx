@@ -1,11 +1,12 @@
 import { HelperText, InputText } from "@components/atoms"
+import { InputTypeText } from "@local-types/index"
+
 import cn from "classnames"
 import styles from "./styles.module.css"
 
 type InputProps = JSX.IntrinsicElements["input"]
 interface Props {
-  type?: "text" | "number" | "email" | "password"
-
+  type?: InputTypeText
   value?: InputProps["value"]
   onChange?: InputProps["onChange"]
   onBlur?: InputProps["onBlur"]
@@ -21,7 +22,7 @@ interface Props {
 export const TextField = ({
   helper,
   inputProps,
-  type = "text",
+  type = InputTypeText.text,
   error = false,
   classContainer,
   classInput,

@@ -1,11 +1,9 @@
+import { InputTypeText } from "@local-types/index"
 import cn from "classnames"
 import styles from "./styles.module.css"
-type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->
+type InputProps = JSX.IntrinsicElements["input"]
 type Props = InputProps & {
-  type?: "text" | "number" | "email" | "password"
+  type?: InputTypeText
   error?: boolean
 }
 export const InputText = ({ error = false, ...rest }: Props) => {

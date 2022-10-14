@@ -1,21 +1,21 @@
+import { useState } from "react"
 import { useFormik } from "formik"
-
 import cn from "classnames"
 import styles from "./styles.module.css"
 import Search from "@assets/svg/Search"
-import { Button, Select } from "@components/atoms"
-import { TextField } from "@components/molecules"
+import { Anchor, Button, CheckBox, Select } from "@components/atoms"
+import { ControlLabel, SelectField, TextField } from "@components/molecules"
 
 import { createJSONFile } from "@utils/index"
 import * as Yup from "yup"
+import {
+  FieldInputType,
+  FieldSelectType,
+  InputFormRegisterUser,
+  InputTypeText,
+} from "@local-types/index"
 type Props = {}
-type InputFormRegister = {
-  email: string
-  password: string
-  confirmPassword: string
-  country: string
-  language: string
-}
+
 export const RegisterForm = ({}: Props) => {
   const initialValues = {
     email: "",
@@ -24,7 +24,8 @@ export const RegisterForm = ({}: Props) => {
     country: "",
     language: "",
   }
-  const formik = useFormik<InputFormRegister>({
+  const [termsChecked, setTermChecked] = useState<boolean>(false)
+  const formik = useFormik<InputFormRegisterUser>({
     initialValues,
     validateOnMount: true,
     validationSchema: Yup.object({
@@ -37,8 +38,8 @@ export const RegisterForm = ({}: Props) => {
       confirmPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords don't match!")
         .required("Required"),
-      country: Yup.string().required(),
-      language: Yup.string().required(),
+      country: Yup.string().required("This field is required"),
+      language: Yup.string().required("This field is required"),
     }),
     onSubmit: values => {
       createJSONFile(values, "register-data")
@@ -47,23 +48,7 @@ export const RegisterForm = ({}: Props) => {
   const onChangeSelect = (value: string | number, name?: string) => {
     name && formik.setFieldValue(name, value)
   }
-  type Field = {
-    name: string
-    value: string | number
-    onBlur: React.FocusEventHandler<any>
-    placeholder: string
-    error: string | undefined
-  }
-  type FieldInputType = Field & {
-    type: "text" | "email" | "number" | "password"
-    onChange: React.ChangeEventHandler<HTMLInputElement>
-  }
-  type FieldSelectType = Field & {
-    type: "select"
-    onChange: (value: string | number, name?: string) => void
-    options: string[]
-    icon: null | JSX.Element
-  }
+
   const fields: (FieldSelectType | FieldInputType)[] = [
     {
       name: "email",
@@ -74,7 +59,7 @@ export const RegisterForm = ({}: Props) => {
         Boolean(formik.touched?.email) && formik.errors.email
           ? formik.errors.email
           : "",
-      type: "email",
+      type: InputTypeText.email,
       placeholder: "Email",
     },
     {
@@ -87,7 +72,7 @@ export const RegisterForm = ({}: Props) => {
           ? formik.errors.password
           : "",
 
-      type: "password",
+      type: InputTypeText.password,
       placeholder: "Password",
     },
     {
@@ -100,7 +85,7 @@ export const RegisterForm = ({}: Props) => {
         formik.errors.confirmPassword
           ? formik.errors.confirmPassword
           : "",
-      type: "password",
+      type: InputTypeText.password,
       placeholder: "Retype Password",
     },
     {
@@ -143,16 +128,20 @@ export const RegisterForm = ({}: Props) => {
 
   return (
     <form className={cn(styles.wrapper)} onSubmit={formik.handleSubmit}>
+      {JSON.stringify(formik.errors, null, 2)}
       {fields.map(field => {
         if (field.type === "select") {
           return (
-            <Select
+            <SelectField
               key={field.name}
               icon={field.icon}
               name={field.name}
               options={field.options}
               value={field.value}
               onChange={field.onChange}
+              error={Boolean(field.error)}
+              helper={field.error}
+              onBlur={field.onBlur}
             />
           )
         }
@@ -170,7 +159,23 @@ export const RegisterForm = ({}: Props) => {
           />
         )
       })}
-      <Button type="submit" disabled={formik.isValid || formik.isSubmitting}>
+
+      <ControlLabel
+        input={
+          <CheckBox
+            checked={termsChecked}
+            onChange={() => setTermChecked(s => !s)}
+            shape="circle"
+          />
+        }
+      >
+        By continuing I agree to the <Anchor href="#">Terms of Services</Anchor>{" "}
+        and <Anchor href="#">Privacy Policy</Anchor>
+      </ControlLabel>
+      <Button
+        type="submit"
+        disabled={!(formik.isValid && termsChecked) || formik.isSubmitting}
+      >
         Sign Up
       </Button>
     </form>

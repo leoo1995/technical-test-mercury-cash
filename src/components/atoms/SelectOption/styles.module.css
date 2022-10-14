@@ -1,7 +1,0 @@
-.wrapper {
-  padding: 0.5em;
-  margin: 0;
-}
-.wrapper:hover {
-  background-color: var(--border-field);
-}

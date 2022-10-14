@@ -5,15 +5,15 @@ import { ControlLabel, TextField } from "@components/molecules"
 import cn from "classnames"
 import styles from "./styles.module.css"
 import { createJSONFile } from "@utils/index"
+import { InputFormLoginUser, InputTypeText } from "@local-types/index"
 
-type InputFormLogin = { email: string; password: string }
 export const LoginForm = () => {
   const initialValues = {
     email: "",
     password: "",
   }
 
-  const formik = useFormik<InputFormLogin>({
+  const formik = useFormik<InputFormLoginUser>({
     initialValues,
     validateOnMount: true,
     validationSchema: Yup.object({
@@ -52,7 +52,7 @@ export const LoginForm = () => {
       <div className={styles.passwordSection}>
         <TextField
           classContainer={styles.passwordField}
-          type="password"
+          type={InputTypeText.password}
           placeholder="Password"
           {...formik.getFieldProps("password")}
           error={Boolean(helperFields.password)}
