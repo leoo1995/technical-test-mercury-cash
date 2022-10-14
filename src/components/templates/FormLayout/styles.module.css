@@ -1,0 +1,28 @@
+.container {
+  width: auto;
+  min-height: 100vh;
+  --width-items: 500px;
+  box-sizing: border-box;
+  padding-top: 7rem;
+}
+.header {
+  margin: 0 auto;
+  margin-bottom: 4rem;
+  display: flex;
+  justify-content: center;
+}
+.body {
+  margin: auto;
+  width: var(--width-items);
+  margin-bottom: 4rem;
+}
+.line {
+  width: var(--width-items);
+  border-color: white;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  width: var(--width-items);
+  margin: auto;
+}

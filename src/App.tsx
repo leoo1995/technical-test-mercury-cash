@@ -1,42 +1,23 @@
 import Search from "@assets/svg/Search"
-import {
-  Button,
-  CheckBox,
-  InputText,
-  SelecOption,
-  Select,
-} from "@components/atoms"
+import { Anchor, Button, CheckBox, InputText, Select } from "@components/atoms"
 import { LoginForm, RegisterForm } from "@components/organisms"
+import { FormLayout } from "@components/templates"
 import { useState } from "react"
 import { InputTypeText } from "./types"
+import { Paragraph } from "./components/atoms/Paragraph/index"
 
 function App() {
-  const [selectValue, setSelectValue] = useState()
   return (
     <div className="App">
-      <LoginForm />
-      <RegisterForm />
-
-      {/* <CheckBox />
-      <CheckBox disabled />
-      <CheckBox shape="circle" />
-      <CheckBox shape="circle" disabled />
-      <Select
-        icon={<Search />}
-        value={selectValue}
-        onChange={value => setSelectValue(value)}
-        options={[
-          { value: 1, label: "hola mundo" },
-          { value: 2, label: "segunda opcion" },
-        ]}
+      <FormLayout
+        header={<img src="images/logo.png" />}
+        body={<LoginForm />}
+        footer={
+          <Paragraph>
+            Don't have an account? <Anchor href="#">Sign up</Anchor> instead
+          </Paragraph>
+        }
       />
-      <Select
-        icon={<Search />}
-        options={[
-          { value: 1, label: "hola mundo" },
-          { value: 2, label: "segunda opcion" },
-        ]}
-      /> */}
     </div>
   )
 }

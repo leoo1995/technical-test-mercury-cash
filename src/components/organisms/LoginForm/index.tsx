@@ -51,7 +51,6 @@ export const LoginForm = () => {
         : "",
   }
 
-  console.log({ savedForm })
   return (
     <form className={cn(styles.wrapper)} onSubmit={formik.handleSubmit}>
       <Title className={styles.title}>Welcome Back</Title>
